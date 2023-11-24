@@ -1,0 +1,2 @@
+export const GREENHOUSE_API_URL = "https://api.thingspeak.com/channels/2128848/feeds.json?api_key=P983C0G1H6RO2L1Z"
+export const WEATHER_API_URL = "api.openweathermap.org/data/2.5/forecast?lat=53.43&lon=-2.26&appid=9ad1336a393d8da13d0d523979ee1570"

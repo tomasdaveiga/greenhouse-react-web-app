@@ -1,0 +1,44 @@
+.graphBox {
+    width: 600px;
+    height: 300px;
+    max-width: 100%;
+    border-radius: 20px;
+    padding: 5px 20px 20px 20px;
+    margin: auto auto auto auto;
+    box-shadow: 10px -2px 20px 2px rgb(0 0 0 / 30%);
+    color: #000000;
+    background-color: #a5f889;
+}
+
+.graphContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.graphText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.graphName {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 2;
+    margin: 0;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.graphValue {
+    font-size: 75px;
+    line-height: 70px;
+    margin: 0;
+    text-align: right;
+}
+
+.graphIcon {
+    width: 100px;
+    padding: 10px 10px 0px;
+}
