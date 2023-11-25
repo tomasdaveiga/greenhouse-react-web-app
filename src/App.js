@@ -15,6 +15,7 @@ const Header = ({ getGreenhouseData }) => {
 
 const App = () => {
   const [currentGreenhouse, setGreenhouse] = useState(null);
+  const [chartFeatureData, setChartFeatureData] = useState(null);
   const [showChart, setShowChart] = useState(false);
 
   const handleGreenhouseData = () => {
@@ -38,7 +39,8 @@ const App = () => {
 
   console.log(currentGreenhouse);
 
-  const handleShowChart = () => {
+  const handleShowChart = (featureData) => {
+    setChartFeatureData(featureData);
     setShowChart(!showChart);
   }
 
@@ -59,31 +61,31 @@ const App = () => {
           featureName={'Temperature'}
           featureValue={`${Math.round(parseFloat(currentGreenhouse?.feeds[lastFeedIndex].field1))}°C`}
           featureIcon={'icons/thermometer.png'}
-          onClick={handleShowChart}
+          onClick={() => handleShowChart({name: "Temperature", data: currentGreenhouse?.feeds})}
         />
         <FeatureBlock
           featureName={'Humidity'}
           featureValue={`${Math.round(parseFloat(currentGreenhouse?.feeds[lastFeedIndex].field2))}%`}
           featureIcon={'icons/humidity.png'}
-          onClick={handleShowChart}
+          onClick={() => handleShowChart({name: "Humidity", data: currentGreenhouse?.feeds})}
         />
         <FeatureBlock
          featureName={'Sunlight'}
          featureValue={`${Math.round(parseFloat(currentGreenhouse?.feeds[lastFeedIndex].field3))}%`}
          featureIcon={'icons/light.png'}
-         onClick={handleShowChart}
+         onClick={() => handleShowChart({name: "Sunlight", data: currentGreenhouse?.feeds})}
         />
         <FeatureBlock
           featureName={'Window'}
           featureValue={`${Math.round(parseFloat(currentGreenhouse?.feeds[lastFeedIndex].field4))}%`}
           featureIcon={'icons/window.png'}
-          onClick={handleShowChart}
+          onClick={() => handleShowChart({name: "Window", data: currentGreenhouse?.feeds})}
         />
       </div>
       <div className={`overlay ${showChart ? 'visible' : ''}`} onClick={handleOverlayClick}>
         <div className="modal">
           <GraphBlock
-              historicalData={currentGreenhouse?.feeds.map(feed => ({ timestamp: feed.timestamp, field1: feed.field4 }))}
+              historicalData={chartFeatureData}
               onClose={() => setShowChart(false)}
           />
         </div>
