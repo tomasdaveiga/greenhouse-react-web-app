@@ -1,5 +1,5 @@
 import "./graph-block.css"
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 const LineChart = ({ name, data }) => {
@@ -15,7 +15,15 @@ const LineChart = ({ name, data }) => {
       Light: 'field3',
       Window: 'field4',
     };
-  
+
+    // Data needs to be filtered out based on the date.
+    // Add a few buttons to show data:
+    // - today, 
+    // - past 7 days,
+    // - past 30 days,
+    // - past year,
+    // - since beginning
+
     // Create a new chart instance
     const chart = 
       new Chart(
@@ -23,7 +31,10 @@ const LineChart = ({ name, data }) => {
         {
           type: 'line',
           data: {
-            labels: data.map(row => row.created_at),
+            labels: data.map(row => {
+              const date = new Date(row.created_at);
+              return date.toLocaleTimeString();
+            }),
             datasets: [
               {
                 label: name,
@@ -31,6 +42,28 @@ const LineChart = ({ name, data }) => {
               },
             ],
           },
+          options: {
+            scales: {
+              x: {
+                type: 'linear',
+                position: 'bottom',
+                ticks: {
+                  stepSize: 60,
+                  callback: (value, index, values) => {
+                    const hours = Math.floor(value/60).toString().padStart(2,'0');
+                    return `${hours}`;
+                  },
+                },
+                min: 0,
+                max: 1440,
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              }
+            }
+          }
         }
       );
     
@@ -53,8 +86,10 @@ const GraphBlock = ({ historicalData, onClose }) => {
         &times;
       </div>
       <div className="graphContent">
-        <div className="graphText">
-          <p className="graphName">{historicalData.name}</p>
+        <div className="graphTitle">
+          <p>{historicalData.name}</p>
+        </div>
+        <div className="graphPlot">
           <LineChart name={historicalData.name} data={historicalData.data} />
         </div>
       </div>
