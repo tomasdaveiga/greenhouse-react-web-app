@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { GREENHOUSE_API_URL, WEATHER_API_URL } from './api';
 import FeatureBlock from './feature-block/feature-block';
-import ChartComponent from './graph-block/graph-block';
+import GraphBlock from './graph-block/graph-block';
 
 const Header = ({ getGreenhouseData }) => {
   return (
@@ -43,7 +43,7 @@ const App = () => {
   }
 
   const handleOverlayClick = (event) => {
-    if (event.target.classList.contains('overlay')){
+    if (event.target.classList.contains('overlay') || event.target.classList.contains('closeButton')){
       setShowChart(false);
     }
   }
@@ -82,8 +82,9 @@ const App = () => {
       </div>
       <div className={`overlay ${showChart ? 'visible' : ''}`} onClick={handleOverlayClick}>
         <div className="modal">
-          <ChartComponent
+          <GraphBlock
               historicalData={currentGreenhouse?.feeds.map(feed => ({ timestamp: feed.timestamp, field1: feed.field4 }))}
+              onClose={() => setShowChart(false)}
           />
         </div>
       </div>

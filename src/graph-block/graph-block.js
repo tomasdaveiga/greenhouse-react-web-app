@@ -1,6 +1,6 @@
 import "./graph-block.css"
 
-const ChartComponent = ({ historicalData }) => {
+const GraphBlock = ({ historicalData, onClose }) => {
 
   if (!historicalData) {
     return null;
@@ -22,13 +22,16 @@ const ChartComponent = ({ historicalData }) => {
 
   return (
     <div className="graphBox">
-          <div className="graphContent">
-              <div className="graphText">
-                  <p className="graphName">{data.labels}</p>
-              </div>
-          </div>
+      <div className="closeButton" onClick={onClose}>
+        &times;
+      </div>
+      <div className="graphContent">
+        <div className="graphText">
+          <p className="graphName">{data.labels}</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default ChartComponent;
+export default GraphBlock;

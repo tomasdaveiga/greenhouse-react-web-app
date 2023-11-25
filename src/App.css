@@ -1,11 +1,11 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: rgb(164, 221, 164);
 }
 
 .App {
   text-align: center;
-  background-color: rgb(164, 221, 164);
 }
 
 .headerTitle {
